@@ -3,18 +3,11 @@ Arquivo principal
 """
 
 import time, random
-
-def tempo_gasto(funcao):
-  def wrapper(*args, **kwargs):
-    tempo_inicial = time.time()
-    funcao(*args, **kwargs)
-    tempo_final = time.time() - tempo_inicial
-    print(f'{tempo_final:.6f}')
-  return wrapper
+from utils.utils import tempo_gasto
 
 
 @tempo_gasto
-def gerar_arquivo(linhas, chaves_ordenadas) -> None:
+def gerar_arquivo(linhas: int, chaves_ordenadas: bool) -> None:
  nome_do_arquivo = f'arquivos_entrada/{linhas}_desordenado.txt'
  ids = random.sample(range(linhas), linhas)
 
@@ -28,29 +21,16 @@ def gerar_arquivo(linhas, chaves_ordenadas) -> None:
     arquivo.write(linha)
     
 
-def gerar_arquivos_facade():
-  gerar_arquivo(100, True)
-  gerar_arquivo(500, True)
-  gerar_arquivo(1_000, True)
-  gerar_arquivo(5_000, True)
-  gerar_arquivo(10_000, True)
-  gerar_arquivo(100, False)
-  gerar_arquivo(500, False)
-  gerar_arquivo(1_000, False)
-  gerar_arquivo(5_000, False)
-  gerar_arquivo(10_000, False)
-
-
-def pesquisa_sequencial(nome_do_arquivo, chave):
-  with open(nome_do_arquivo, "r") as arquivo:
-    for linha in arquivo:
-      partes = linha.strip().split(",")
-      if partes[0] == chave:
-        print(f'chave encontrada na linha {linha}')
+def gerar_arquivos_facade(quantidade_de_linhas):
+  for linhas in quantidade_de_linhas:
+    gerar_arquivo(linhas, True)
+    gerar_arquivo(linhas, False)
 
 
 def main() -> None:
-  gerar_arquivos_facade()
+  quantidade_de_linhas = [100, 500, 1_000, 5_000, 10_000]
+  gerar_arquivos_facade(quantidade_de_linhas)
+
 
 if __name__ == "__main__":
   main()
