@@ -1,5 +1,5 @@
 """
-Arquivo que contém as estruturas de dados
+Arquivo que contém a estrutura de dados pesquisa sequencial
 """
 
 def pesquisa_sequencial(nome_do_arquivo, chave):
